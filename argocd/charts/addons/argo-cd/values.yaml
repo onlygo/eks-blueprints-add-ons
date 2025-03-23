@@ -1,3 +1,6 @@
+global:
+  domain: argocd.urbansaas.com
+
 controller:
   replicas: 1 # Additional replicas will cause sharding of managed clusters across number of replicas.
   metrics:
@@ -52,6 +55,18 @@ server:
         prometheus.io/scrape: true
   service:
     type: ClusterIP
+
+  ingress:
+    enabled: true
+    ingressClassName: alb
+    annotations:
+      alb.ingress.kubernetes.io/scheme: internet-facing
+      alb.ingress.kubernetes.io/target-type: ip
+      alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
+      alb.ingress.kubernetes.io/group.name: argocd
+      alb.ingress.kubernetes.io/rewrite-target: /
+      alb.ingress.kubernetes.io/success-codes: "200,301,302"
+      external-dns.alpha.kubernetes.io/hostname: argocd.urbansaas.com
 
 configs:
   params:
