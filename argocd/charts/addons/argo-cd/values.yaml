@@ -56,26 +56,6 @@ server:
   service:
     type: ClusterIP
 
-  ingress:
-    enabled: true
-    ingressClassName: alb
-    annotations:
-      alb.ingress.kubernetes.io/scheme: internet-facing
-      alb.ingress.kubernetes.io/target-type: ip
-      alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
-      alb.ingress.kubernetes.io/ssl-redirect: "443"  # Redirect HTTP to HTTPS
-      alb.ingress.kubernetes.io/group.name: argocd
-      alb.ingress.kubernetes.io/rewrite-target: /
-      alb.ingress.kubernetes.io/success-codes: "200,301,302"
-      external-dns.alpha.kubernetes.io/hostname: argocd.urbansaas.com
-
-    hosts:
-      - argocd.urbansaas.com
-    tls:
-      - hosts:
-          - argocd.urbansaas.com
-        secretName: argocd-tls-secret
-
 configs:
   repositories:
     # Required when using helm repository with oci formal like karpenter and aws-gateway-api-controller
