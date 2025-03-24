@@ -36,4 +36,21 @@ kube-prometheus-stack:
     admissionWebhooks:
       failurePolicy: Ignore
 
+  grafana:
+    ingress:
+      enabled: true
+      ingressClassName: alb
+      annotations:
+        alb.ingress.kubernetes.io/scheme: internet-facing
+        alb.ingress.kubernetes.io/target-type: ip
+        alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
+        alb.ingress.kubernetes.io/ssl-redirect: "443"
+        alb.ingress.kubernetes.io/group.name: monitoring
+        external-dns.alpha.kubernetes.io/hostname: grafana.urbansaas.com
+      hosts:
+        - grafana.urbansaas.com
+      tls:
+        - hosts:
+            - grafana.urbansaas.com
+
   ## additional configuration options available here: https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml
