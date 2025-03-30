@@ -111,7 +111,7 @@ spec:
               - $values/{{metadata.annotations.addons_repo_basepath}}clusters/{{name}}/addons/{{values.addonChart}}/values.yaml
             values: |
               image:
-                tag: {{values.clusterAutoScalerImageTag}}
+                tag: v1.32.0
               awsRegion: {{metadata.annotations.aws_region}}
               autoDiscovery:
                 clusterName: {{metadata.annotations.aws_cluster_name}}
